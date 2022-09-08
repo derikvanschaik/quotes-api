@@ -1,16 +1,13 @@
 const express = require('express')
 const createApp = require('./app.js')
+const cors = require('cors')
 const {quotesService, imageService} = require('./services/services.js')
 
 const port = process.env.PORT || 3000
 
 const app = createApp(quotesService, imageService);
 // allow cors 
-app.use((req, res, next) => {
-  // put this into an env variable one I get the site in prod
-  res.header({"Access-Control-Allow-Origin": "*"});
-  next();
-})
+app.use(cors());
 
 app.listen(port, () => {
   if(port === 3000){
