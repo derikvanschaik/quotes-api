@@ -2,6 +2,8 @@ const express = require('express');
 
 function createApp(quotesService, imageService){
     const app = express();
+    // allow cors 
+    app.use(cors());
     // routes
     app.get('/', async (req, res) =>{
         const authorToQuotes = await quotesService.getQuotesData();
