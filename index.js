@@ -8,7 +8,7 @@ const app = createApp(quotesService, imageService);
 // allow cors 
 app.use((req, res, next) => {
   // put this into an env variable one I get the site in prod
-  res.header({"Access-Control-Allow-Origin": "http://localhost:3000/"});
+  res.header({"Access-Control-Allow-Origin": "*"});
   next();
 })
 
