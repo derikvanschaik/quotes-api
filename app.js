@@ -16,6 +16,16 @@ function createApp(quotesService, imageService){
         const image = await imageService.getImage(author);
         res.send({author, quotes: quotes[author], image});
     })
+    app.get('/search/:author', async (req, res) => {
+        const author = req.params.author;
+        const search = author.replace(/[^a-zA-Z]/g,"");
+        if(search === ''){
+            res.send({authors: []});
+        }else{
+            const authors = await quotesService.searchForAuthor(search);
+            res.send({authors});
+        }
+    })
     return app;
 }
 
