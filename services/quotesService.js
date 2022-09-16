@@ -26,7 +26,23 @@ async function searchForAuthor(author){
         return obj;
     });
     return result;
-
+}
+async function searchForKeywords(keywords){
+    const quotes = await axios.get('https://type.fit/api/quotes')
+    const matches = {}
+    for(const { author, text } of quotes.data){
+        for(const key of keywords){
+            if(text.toLowerCase().includes(key.toLowerCase())){
+                if(!matches[text]){
+                    matches[text] = {'keywords': {'match': [], 'indices': []}, author}
+                }
+                matches[text]['keywords']['match'].push(key)
+                matches[text]['keywords']['indices'].push(text.toLowerCase().indexOf(key.toLowerCase()))
+            }
+        }
+    }
+    return matches;
+    
 }
 
-module.exports = { getQuotesData, searchForAuthor }
+module.exports = { getQuotesData, searchForAuthor, searchForKeywords }

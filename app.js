@@ -26,6 +26,11 @@ function createApp(quotesService, imageService){
             res.send({authors});
         }
     })
+    app.get('/keyword-search/:keywords', async (req, res) => {
+        const keywords = req.params.keywords.split("-");
+        const matches = await quotesService.searchForKeywords(keywords);
+        res.send(matches);
+    })
     return app;
 }
 
