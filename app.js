@@ -31,6 +31,10 @@ function createApp(quotesService, imageService){
         const matches = await quotesService.searchForKeywords(keywords);
         res.send(matches);
     })
+    app.get('/images/:author', async (req, res) =>{
+        const images = await imageService.getAllImages(req.params.author);
+        res.send({ images })
+    })
     return app;
 }
 
